@@ -9,18 +9,18 @@ export default function About() {
 
       {/* Main Content */}
       <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-        {/* Profile Image on Left */}
+        {/* Profile Image */}
         <div className="flex-shrink-0">
           <img
-            src="/profile.jpg" // replace with your image path
+            src="src\assets\man-filming-with-professional-camera-new-movie.jpg" // replace with your image path
             alt="Profile"
-            className="w-64 h-auto object-cover"
+            className="w-40 sm:w-56 md:w-64 lg:w-72 h-auto object-cover rounded-xl"
           />
         </div>
 
-        {/* About Text on Right */}
-        <div className="max-w-lg text-right mr-4 sm:mr-8 md:mr-16 lg:mr-24">
-          <h3 className="text-3xl font-bold mb-2">Hi! I’m Jane</h3>
+        {/* About Text */}
+        <div className="max-w-lg text-right ml-6 sm:ml-12 md:ml-20 lg:ml-28">
+          <h3 className="text-3xl font-bold mb-2">Hi! I’m Alvin</h3>
           <p className="text-red-400 font-semibold mb-4">I am a movie blogger</p>
           <p className="text-sm text-gray-300 mb-6">
             This is where I’ll add info on the user’s profile…
