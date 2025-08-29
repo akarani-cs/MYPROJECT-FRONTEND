@@ -25,7 +25,8 @@ export default function About() {
             <h3 className="text-3xl font-bold mb-2">Hi! I’m Alvin</h3>
             <p className="text-red-400 font-semibold mb-4">I am a movie blogger</p>
             <p className="text-sm text-gray-300 mb-6">
-              This is where I’ll add info on the user’s profile…
+              This is where I’ll add <br />
+                   info on the user’s profile…
             </p>
 
             {/* Button */}
