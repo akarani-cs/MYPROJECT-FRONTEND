@@ -1,5 +1,6 @@
 
 import React from "react";
+import { Link } from "react-router-dom";
 import zombiesBg from "../assets/zombies-movie-theater.jpg";
 
 const ExploreSection = () => {
@@ -31,6 +32,15 @@ const ExploreSection = () => {
             in captivating movie reviews, exciting trailers, and engaging
             discussions. Let your movie journey begin today!
           </p>
+
+          <br />
+            {/* Button */}
+            <Link
+              to="/reviews"
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 font-semibold inline-block rounded-lg"
+            >
+              Reviews
+            </Link>
         </div>
       </div>
     </section>
