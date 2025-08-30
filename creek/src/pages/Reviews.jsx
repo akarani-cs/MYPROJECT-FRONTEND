@@ -1,8 +1,23 @@
+import React from "react";
+import ReviewsSection from "../components/ReviewsSection";
+import Contact from "../components/Contact";
+import RatingsSection from "../components/RatingsSection";
+import QuoteScroll from "../components/QuoteScroll";
+import MovieGallery from "../components/MovieGallery";
+
+
 export default function Reviews() {
     return (
-        <div className="bg-black min-h-screen text-white">
-            <p>Reviews</p>
-            </div>
+       <>
+       <ReviewsSection />
+       <RatingsSection />
+       <QuoteScroll />
+       <MovieGallery />
 
+       <Contact />
+
+       
+       
+       </>
     );
 }
