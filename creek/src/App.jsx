@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import './App.css'
 import { Routes, Route } from "react-router-dom";
-import Navbar from './components/navbar'
-import About from './components/About'
-import Contact from './components/Contact'
+import Home from "./pages/Home";
+import Reviews from "./pages/Reviews";
+import Trailers from "./pages/Trailers";
+import Navbar from "./components/Navbar";
 
 
 export default function App() {
 
   return (
     <>
-    <Navbar />
-
-    <div className="bg-black min-h-screen text-white">
-      <About />
-    </div>
-
-    <div className="bg-black min-h-screen text-white">
-      <Contact />
+    <div className="bg-black text-white min-h-screen">
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/trailers" element={<Trailers />} />
+        <Route path="/reviews" element={<Reviews />} />
+      </Routes>
     </div>
     </>
   )

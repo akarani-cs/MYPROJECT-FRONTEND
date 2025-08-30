@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [showSearch, setShowSearch] = useState(false);
@@ -50,15 +51,9 @@ export default function Navbar() {
 
       {/* Right: Navigation */}
       <nav className="flex gap-6 font-semibold">
-        <a href="#" className="hover:text-blue-400">
-          Home
-        </a>
-        <a href="#" className="text-red-600 hover:text-red-400">
-          Trailers
-        </a>
-        <a href="#" className="hover:text-blue-400">
-          Reviews
-        </a>
+      <Link to="/" className="hover:text-blue-400">Home</Link>
+      <Link to="/trailers" className="text-red-600 hover:text-red-400">Trailers</Link>
+      <Link to="/reviews" className="hover:text-blue-400">Reviews</Link>
       </nav>
     </header>
   );
