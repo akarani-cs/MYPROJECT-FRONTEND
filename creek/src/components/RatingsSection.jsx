@@ -1,28 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react"; // lightweight icon package
 
-const movies = [
-  {
-    id: 1,
-    title: "Troop Number Eight",
-    rating: "6/10",
-    image:
-      "https://images.pexels.com/photos/15824963/pexels-photo-15824963.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    id: 2,
-    title: "Next Man UP",
-    rating: "8.5/10",
-    image:
-      "https://images.pexels.com/photos/1767016/pexels-photo-1767016.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  // more movies later...
-];
+// API Key and Base URL for TMDb API
+const API_KEY = "b91f100e78d4923f752a81397c07ef35";  // Use your TMDb API Key here
+const BASE_URL = "https://api.themoviedb.org/3/movie/";
 
 export default function RatingsSection() {
   const navigate = useNavigate();
   const scrollRef = useRef(null);
+  const [movies, setMovies] = useState([]);
 
   // Scroll handler
   const scroll = (direction) => {
@@ -33,6 +20,29 @@ export default function RatingsSection() {
       });
     }
   };
+
+  // Fetching movie details using TMDb API
+  useEffect(() => {
+    const fetchMovies = async () => {
+      const movieIds = [
+        550, // Example movieId for Fight Club
+        299536, // Avengers: Infinity War
+        12345, // Example movieId
+        // Add more movie IDs as needed
+      ];
+
+      const movieData = await Promise.all(
+        movieIds.map(async (id) => {
+          const response = await fetch(`${BASE_URL}${id}?api_key=${API_KEY}`);
+          const data = await response.json();
+          return data;
+        })
+      );
+      setMovies(movieData);
+    };
+
+    fetchMovies();
+  }, []);
 
   return (
     <section className="bg-black text-white px-6 py-8 relative">
@@ -64,10 +74,12 @@ export default function RatingsSection() {
           <div
             key={movie.id}
             className="min-w-[300px] h-[200px] md:min-w-[500px] md:h-[300px] rounded-lg overflow-hidden relative cursor-pointer flex-shrink-0"
-            onClick={() => navigate(`/reviews/${movie.id}`)}
+            onClick={() =>
+              navigate(`/reviews/${movie.id}`, { state: { movie } }) // Pass movie data via navigate
+            }
           >
             <img
-              src={movie.image}
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
               alt={movie.title}
               className="w-full h-full object-cover"
             />
@@ -75,7 +87,7 @@ export default function RatingsSection() {
             <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-4">
               <h3 className="text-lg md:text-2xl font-bold">{movie.title}</h3>
               <p className="text-sm md:text-base text-gray-200">
-                On My Screen Rate: {movie.rating}
+                On My Screen Rate: {movie.vote_average}/10
               </p>
             </div>
           </div>

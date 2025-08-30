@@ -6,6 +6,7 @@ import Trailers from "./pages/Trailers";
 import RatingsSection from "./components/RatingsSection";
 import ReviewDetail from "./components/ReviewDetail";
 import { AnimatePresence, motion } from "framer-motion";
+import MovieDetail from "./components/MovieDetail";
 
 export default function App() {
   const location = useLocation();
@@ -66,6 +67,20 @@ export default function App() {
               </motion.div>
             }
           />
+            {/* Route for movie details */}
+          <Route
+            path="/reviews/:id"
+            element={
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <MovieDetail />
+              </motion.div>
+            }
+          />
           <Route
             path="/reviews/:id"
             element={
@@ -77,6 +92,7 @@ export default function App() {
               >
                 <ReviewDetail />
               </motion.div>
+              
             }
           />
         </Routes>

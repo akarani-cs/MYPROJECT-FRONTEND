@@ -1,73 +1,105 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+
+const apiKey = "b91f100e78d4923f752a81397c07ef35"; // Your TMDb API Key
+const BASE_URL = "https://api.themoviedb.org/3";
+
+// Fetch popular movies URL
+const popularMoviesUrl = `${BASE_URL}/movie/popular?api_key=${apiKey}&page=1`;
+// Fetch new movies URL (can use 'release_date' filtering)
+const newMoviesUrl = `${BASE_URL}/movie/now_playing?api_key=${apiKey}&page=1`;
 
 const TrailersGrid = () => {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [page, setPage] = useState(1); // Track current page
+  const [loading, setLoading] = useState(false);
+  const scrollRef = useRef(null);
 
-  const apiKey = "c2bb0823";
-  const movieIds = [
-    "tt3896198", // Guardians of the Galaxy Vol. 2
-    "tt1375666", // Inception
-    "tt0133093", // The Matrix
-    "tt0114369", // Se7en
-    "tt0109830", // Forrest Gump
-    "tt0110912", // Pulp Fiction
-    "tt0120737", // LOTR: Fellowship
-    "tt0816692", // Interstellar
-    "tt0468569", // The Dark Knight
-    "tt0137523", // Fight Club
-    "tt0076759", // Star Wars: A New Hope
-    "tt0080684", // The Empire Strikes Back
-    "tt0099685", // Back to the Future
-    "tt1825683", // Mad Max: Fury Road
-    "tt0113228", // Trainspotting
-    "tt0218121", // The Godfather
-    "tt1375666", // Inception
-    "tt0109830", // Forrest Gump
-    "tt0133093", // The Matrix
-  ];
+  // Fetch movies from the API
+  const fetchMovies = async (url) => {
+    setLoading(true);
+    const response = await fetch(url);
+    const data = await response.json();
+    const validMovies = data.results.filter((movie) => movie.poster_path); // Filter movies without posters
+    setMovies((prevMovies) => [...prevMovies, ...validMovies]); // Append new movies to existing ones
+    setLoading(false);
+  };
 
-  // Fetch movie data
+  // Fetch the trailer for a selected movie
+  const fetchTrailer = async (movieId) => {
+    const response = await fetch(`${BASE_URL}/movie/${movieId}/videos?api_key=${apiKey}`);
+    const data = await response.json();
+    const trailer = data.results.find((video) => video.type === "Trailer");
+    return trailer ? `https://www.youtube.com/embed/${trailer.key}` : null;
+  };
+
+  // Set selected movie and fetch its trailer
+  const handleMovieClick = async (movie) => {
+    const trailerUrl = await fetchTrailer(movie.id);
+    setSelectedMovie({ ...movie, trailer: trailerUrl });
+  };
+
+  // Infinite scroll functionality
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const bottom =
+        scrollRef.current.scrollHeight === scrollRef.current.scrollTop + scrollRef.current.clientHeight;
+      if (bottom && !loading) {
+        setPage((prevPage) => {
+          const newPage = prevPage + 1;
+          fetchMovies(`${popularMoviesUrl.split("&page=1")[0]}&page=${newPage}`);
+          return newPage;
+        });
+      }
+    }
+  };
+
+  // Initialize movie data on page load
   useEffect(() => {
-    const fetchMovies = async () => {
-      const movieData = await Promise.all(
-        movieIds.map(async (id) => {
-          const response = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=${apiKey}`);
-          const data = await response.json();
-          return data;
-        })
-      );
-      setMovies(movieData);
-    };
-
-    fetchMovies();
+    fetchMovies(popularMoviesUrl); // Fetch popular movies initially
   }, []);
+
+  // Attach scroll event listener
+  useEffect(() => {
+    const scrollElement = scrollRef.current;
+    scrollElement.addEventListener("scroll", handleScroll);
+    return () => {
+      scrollElement.removeEventListener("scroll", handleScroll);
+    };
+  }, [loading]);
 
   return (
     <div className="w-full min-h-screen bg-black text-white">
       <h1 className="text-[5rem] font-extrabold px-12 pt-16">Trailers</h1>
 
       {/* Movie posters grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 px-6">
+      <div
+        className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 px-6"
+        ref={scrollRef}
+        style={{ overflowY: "auto", height: "80vh" }}
+      >
         {movies.map((movie) => (
           <motion.div
-            key={movie.imdbID}
+            key={movie.id}
             className="relative cursor-pointer"
             whileHover={{ scale: 1.05 }}
-            onClick={() => setSelectedMovie(movie)}
+            onClick={() => handleMovieClick(movie)}
           >
             <img
-              src={movie.Poster}
-              alt={movie.Title}
+              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              alt={movie.title}
               className="w-full h-auto object-cover rounded-lg shadow-lg"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-center py-2">
-              <h3 className="font-bold">{movie.Title}</h3>
+              <h3 className="font-bold">{movie.title}</h3>
             </div>
           </motion.div>
         ))}
       </div>
+
+      {/* Loading Spinner */}
+      {loading && <div className="text-center text-white">Loading more movies...</div>}
 
       {/* Modal for trailer */}
       {selectedMovie && (
@@ -82,26 +114,32 @@ const TrailersGrid = () => {
             <div className="flex flex-col md:flex-row items-center justify-center h-full">
               <div className="w-1/2">
                 <img
-                  src={selectedMovie.Poster}
-                  alt={selectedMovie.Title}
+                  src={`https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`}
+                  alt={selectedMovie.title}
                   className="w-full h-auto object-contain rounded-lg shadow-lg"
                 />
               </div>
               <div className="w-1/2 px-6 py-4 text-white">
-                <h2 className="text-3xl font-bebas mb-4">{selectedMovie.Title}</h2>
+                <h2 className="text-3xl font-bebas mb-4">{selectedMovie.title}</h2>
 
                 {/* Movie Details */}
-                <p className="mb-2"><strong>Released:</strong> {selectedMovie.Released}</p>
-                <p className="mb-2"><strong>Genre:</strong> {selectedMovie.Genre}</p>
-                <p className="mb-2"><strong>Cast:</strong> {selectedMovie.Actors}</p>
-                <p className="mb-2"><strong>Director:</strong> {selectedMovie.Director}</p>
-                <p className="mb-4"><strong>IMDB Rating:</strong> {selectedMovie.imdbRating}/10</p>
-                <p className="mb-6"><strong>Plot:</strong> {selectedMovie.Plot}</p>
+                <p className="mb-2">
+                  <strong>Released:</strong> {selectedMovie.release_date}
+                </p>
+                <p className="mb-2">
+                  <strong>Genre:</strong> {selectedMovie.genres?.map((genre) => genre.name).join(", ")}
+                </p>
+                <p className="mb-4">
+                  <strong>IMDB Rating:</strong> {selectedMovie.vote_average}/10
+                </p>
+                <p className="mb-6">
+                  <strong>Plot:</strong> {selectedMovie.overview}
+                </p>
 
                 {/* Trailer embed */}
-                {selectedMovie.Trailer ? (
+                {selectedMovie.trailer ? (
                   <iframe
-                    src={selectedMovie.Trailer}  // Use the trailer URL provided by OMDB
+                    src={selectedMovie.trailer}
                     title="Trailer"
                     width="100%"
                     height="315"

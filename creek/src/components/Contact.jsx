@@ -1,4 +1,58 @@
+import React, { useState } from "react";
+
 export default function Contact() {
+  // State for form fields
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  // State for form submission status (optional)
+  const [formStatus, setFormStatus] = useState(null);
+
+  // Handle input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    switch (name) {
+      case "firstName":
+        setFirstName(value);
+        break;
+      case "lastName":
+        setLastName(value);
+        break;
+      case "email":
+        setEmail(value);
+        break;
+      case "message":
+        setMessage(value);
+        break;
+      default:
+        break;
+    }
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent form from reloading the page
+    // Form validation (basic)
+    if (!firstName || !lastName || !email || !message) {
+      setFormStatus("All fields are required.");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setFormStatus("Please enter a valid email.");
+      return;
+    }
+
+    // Simulate successful form submission
+    setFormStatus("Thank you for reaching out!");
+    // Optionally, you can clear the form fields after successful submission
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setMessage("");
+  };
+
   return (
     <section className="bg-black text-white py-12 px-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -14,13 +68,16 @@ export default function Contact() {
 
         {/* Right Panel - Contact Form */}
         <div className="bg-[#111] p-8 flex flex-col justify-center">
-          <form className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             {/* First and Last Name */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm mb-1">First name *</label>
                 <input
                   type="text"
+                  name="firstName"
+                  value={firstName}
+                  onChange={handleInputChange}
                   className="w-full bg-transparent border-b border-white focus:outline-none focus:border-red-500"
                 />
               </div>
@@ -28,6 +85,9 @@ export default function Contact() {
                 <label className="block text-sm mb-1">Last name *</label>
                 <input
                   type="text"
+                  name="lastName"
+                  value={lastName}
+                  onChange={handleInputChange}
                   className="w-full bg-transparent border-b border-white focus:outline-none focus:border-red-500"
                 />
               </div>
@@ -38,6 +98,9 @@ export default function Contact() {
               <label className="block text-sm mb-1">Email *</label>
               <input
                 type="email"
+                name="email"
+                value={email}
+                onChange={handleInputChange}
                 className="w-full bg-transparent border-b border-white focus:outline-none focus:border-red-500"
               />
             </div>
@@ -46,7 +109,10 @@ export default function Contact() {
             <div>
               <label className="block text-sm mb-1">Leave us a message...</label>
               <textarea
+                name="message"
                 rows="3"
+                value={message}
+                onChange={handleInputChange}
                 className="w-full bg-transparent border-b border-white focus:outline-none focus:border-red-500"
               ></textarea>
             </div>
@@ -58,6 +124,11 @@ export default function Contact() {
             >
               Submit
             </button>
+
+            {/* Form Status */}
+            {formStatus && (
+              <div className="mt-4 text-center text-sm text-red-500">{formStatus}</div>
+            )}
           </form>
         </div>
       </div>
