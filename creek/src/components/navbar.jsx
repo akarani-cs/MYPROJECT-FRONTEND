@@ -39,21 +39,21 @@ export default function Navbar() {
 
           {/* Search Input (shown only when active) */}
           {showSearch && (
-       <input
-        type="text"
-        placeholder="Search..."
-        className="absolute left-8 top-0 bg-black border border-red-500/70 rounded-lg shadow-md text-white px-3 py-1 text-sm focus:outline-none focus:border-red-500 w-44 transition-all duration-200"
-        autoFocus
-        />
-           )}
+            <input
+              type="text"
+              placeholder="Search..."
+              className="absolute left-8 top-0 bg-black border border-red-500/70 rounded-lg shadow-md text-white px-3 py-1 text-sm focus:outline-none focus:border-red-500 w-44 transition-all duration-200"
+              autoFocus
+            />
+          )}
         </div>
       </div>
 
       {/* Right: Navigation */}
       <nav className="flex gap-6 font-semibold">
-      <Link to="/" className="hover:text-blue-400">Home</Link>
-      <Link to="/trailers" className="text-red-600 hover:text-red-400">Trailers</Link>
-      <Link to="/reviews" className="hover:text-blue-400">Reviews</Link>
+        <Link to="/" className="hover:text-blue-400">Home</Link>
+        <Link to="/trailers" className="text-red-600 hover:text-red-400">Trailers</Link>
+        <Link to="/reviews" className="hover:text-blue-400">Reviews</Link>
       </nav>
     </header>
   );

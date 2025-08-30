@@ -1,8 +1,13 @@
 import Navbar from "../components/Navbar";
+import ExploreSection from "../components/ExploreSection";
 
 export default function Home() {
   return (
-    <div className="bg-black min-h-screen text-white">
-    </div>
+    <>
+    
+    <ExploreSection />
+
+    </>
+   
   );
 }

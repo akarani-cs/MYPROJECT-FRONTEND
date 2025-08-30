@@ -44,11 +44,11 @@ export default function ReviewDetail() {
   return (
     <div className="bg-black text-white min-h-screen p-6">
       <button
-        onClick={() => navigate(-1)}
-        className="mb-6 px-4 py-2 bg-gray-700 rounded-lg hover:bg-gray-600"
-      >
-        ⬅ Back
-      </button>
+  onClick={() => navigate(-1)}
+  className="mb-6 flex items-center text-white font-bold text-2xl hover:opacity-80 transition focus:outline-none active:outline-none"
+>
+  ←
+</button>
 
       <div className="max-w-4xl mx-auto">
         <img

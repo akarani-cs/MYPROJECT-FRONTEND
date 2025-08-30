@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
@@ -33,14 +34,12 @@ const MovieGallery = () => {
     fetchMovies();
   }, []);
 
-  // Keyboard support
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!selectedMovie) return;
       const currentIndex = movies.findIndex(
         (m) => m.imdbID === selectedMovie.imdbID
       );
-
       if (e.key === "Escape") {
         setSelectedMovie(null);
       } else if (e.key === "ArrowLeft") {
@@ -51,7 +50,6 @@ const MovieGallery = () => {
         setSelectedMovie(movies[nextIndex]);
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedMovie, movies]);
@@ -61,8 +59,6 @@ const MovieGallery = () => {
       <h2 className="text-sm font-bold mb-4 border-b border-gray-700 pb-2">
         THE MOVIES I CAN WATCH FOREVER
       </h2>
-
-      {/* Scrollable row */}
       <div className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory">
         {movies.map((movie, idx) => (
           <motion.div
@@ -83,35 +79,27 @@ const MovieGallery = () => {
           </motion.div>
         ))}
       </div>
-
-      {/* Popup modal */}
       {selectedMovie && (
         <div className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50">
           <div className="relative w-full h-full flex">
-            {/* Left side - Poster */}
             <div className="w-2/3 h-full flex items-center justify-center bg-black">
               <img
                 src={selectedMovie.Poster}
                 alt={selectedMovie.Title}
                 className="max-h-[75%] max-w-[75%] object-contain rounded-lg shadow-lg"
               />
-
-              {/* Prev button */}
               <button
                 onClick={() => {
                   const currentIndex = movies.findIndex(
                     (m) => m.imdbID === selectedMovie.imdbID
                   );
-                  const prevIndex =
-                    (currentIndex - 1 + movies.length) % movies.length;
+                  const prevIndex = (currentIndex - 1 + movies.length) % movies.length;
                   setSelectedMovie(movies[prevIndex]);
                 }}
                 className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl bg-black/40 rounded-full px-3 py-1 hover:bg-black/70"
               >
                 ‹
               </button>
-
-              {/* Next button */}
               <button
                 onClick={() => {
                   const currentIndex = movies.findIndex(
@@ -125,39 +113,30 @@ const MovieGallery = () => {
                 ›
               </button>
             </div>
-
-            {/* Right side - Info */}
             <div className="w-1/3 p-10 text-white overflow-y-auto scrollbar-hide">
-              {/* Close button */}
               <button
                 onClick={() => setSelectedMovie(null)}
                 className="absolute top-5 right-5 text-white text-3xl"
               >
                 &times;
               </button>
-
               <h2 className="text-4xl font-bebas mb-4">
                 {selectedMovie.Title}
               </h2>
               <p className="text-sm mb-2">
-                <span className="font-semibold">Released:</span>{" "}
-                {selectedMovie.Released}
+                <span className="font-semibold">Released:</span> {selectedMovie.Released}
               </p>
               <p className="text-sm mb-2">
-                <span className="font-semibold">Genre:</span>{" "}
-                {selectedMovie.Genre}
+                <span className="font-semibold">Genre:</span> {selectedMovie.Genre}
               </p>
               <p className="text-sm mb-2">
-                <span className="font-semibold">Director:</span>{" "}
-                {selectedMovie.Director}
+                <span className="font-semibold">Director:</span> {selectedMovie.Director}
               </p>
               <p className="text-sm mb-2">
-                <span className="font-semibold">Cast:</span>{" "}
-                {selectedMovie.Actors}
+                <span className="font-semibold">Cast:</span> {selectedMovie.Actors}
               </p>
               <p className="text-sm mb-4">
-                <span className="font-semibold">IMDB Rating:</span>{" "}
-                {selectedMovie.imdbRating}/10
+                <span className="font-semibold">IMDB Rating:</span> {selectedMovie.imdbRating}/10
               </p>
               <p className="text-base leading-relaxed opacity-90">
                 {selectedMovie.Plot}
