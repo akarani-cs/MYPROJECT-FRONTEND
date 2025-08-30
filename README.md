@@ -11,3 +11,7 @@ pushed to prod
 
 this project uses react, tailwindcss.
 the api used is the OMDB api
+
+
+the endpoints are in the reviews component
+the trailers component 
