@@ -1,14 +1,17 @@
 
+
 import React from "react";
 import { Link } from "react-router-dom";
-import zombiesBg from "../assets/zombies-movie-theater.jpg";
+import cinemaSeatsBg from "../assets/cinema-seats-still-life.jpg";
+
+
 
 const ExploreSection = () => {
   return (
     <section
       className="relative w-full min-h-screen flex items-center justify-center text-white"
       style={{
-        backgroundImage: "",
+        backgroundImage: `url(${cinemaSeatsBg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

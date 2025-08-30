@@ -1,7 +1,9 @@
+import TrailersGrid from "../components/TrailersGrid";
+
+
+
 export default function Trailers() {
     return (
-        <div className="bg-black min-h-screen text-white">
-            <p>TRAILERS</p>
-            </div>
+        <TrailersGrid />
     );
 }

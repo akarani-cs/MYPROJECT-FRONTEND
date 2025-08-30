@@ -30,21 +30,18 @@ export default function About() {
             </p>
 
             {/* Button */}
-            <a
-              href="#"
-              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 font-semibold inline-block rounded-lg"
-            >
-              My Blog
-            </a>
+            {/*////removed it*/}
+
+            
           </div>
         </div>
       </div>
 
       {/* Social Links */}
       <div className="flex flex-col items-center gap-4 fixed right-4 top-1/2 -translate-y-1/2">
-        <a href="#" className="text-white hover:text-red-500">🐦</a>
-        <a href="#" className="text-white hover:text-red-500">📘</a>
-        <a href="#" className="text-white hover:text-red-500">📸</a>
+        <a href="https://x.com/" className="text-white hover:text-red-500">🐦</a>
+        <a href="https://github.com/" className="text-white hover:text-red-500">📘</a>
+        <a href="https://www.instagram.com/" className="text-white hover:text-red-500">📸</a>
       </div>
     </section>
   );
