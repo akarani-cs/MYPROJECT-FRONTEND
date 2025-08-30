@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-const apiKey = "b91f100e78d4923f752a81397c07ef35"; // Your TMDb API Key
+const apiKey = "b91f100e78d4923f752a81397c07ef35"; // TMDb API Key
 const BASE_URL = "https://api.themoviedb.org/3";
 
 // Fetch popular movies URL
@@ -60,7 +60,7 @@ const TrailersGrid = () => {
     fetchMovies(popularMoviesUrl); // Fetch popular movies initially
   }, []);
 
-  // Attach scroll event listener
+  // scroll event listener
   useEffect(() => {
     const scrollElement = scrollRef.current;
     scrollElement.addEventListener("scroll", handleScroll);

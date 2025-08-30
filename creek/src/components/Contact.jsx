@@ -7,10 +7,10 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  // State for form submission status (optional)
+  // State for form submission status 
   const [formStatus, setFormStatus] = useState(null);
 
-  // Handle input changes
+  
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     switch (name) {
@@ -33,8 +33,8 @@ export default function Contact() {
 
   // Handle form submission
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent form from reloading the page
-    // Form validation (basic)
+    e.preventDefault(); 
+    // Form validation 
     if (!firstName || !lastName || !email || !message) {
       setFormStatus("All fields are required.");
       return;
@@ -46,7 +46,7 @@ export default function Contact() {
 
     // Simulate successful form submission
     setFormStatus("Thank you for reaching out!");
-    // Optionally, you can clear the form fields after successful submission
+    //clear form fields
     setFirstName("");
     setLastName("");
     setEmail("");

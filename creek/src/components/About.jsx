@@ -23,10 +23,10 @@ export default function About() {
           {/* About Text - aligned with navbar links */}
           <div className="max-w-lg text-right md:ml-auto">
             <h3 className="text-3xl font-bold mb-2">Hey There! I’m Alvin</h3>
-            <p className="text-red-400 font-semibold mb-4">Movie bloger/lover📸</p>
+            <p className="text-red-400 font-semibold mb-4">📸Movie bloger/lover📸</p>
             <p className="text-sm text-gray-300 mb-6">
-              I’m obsessed with cinema that challenges and electrifies—Christopher Nolan’s mind-bending narratives and Quentin Tarantino’s razor-sharp dialogue are my lifeblood.  <br /> I crave stories that twist time, explode convention, and leave me dissecting scenes long after the credits roll. For me, movies aren’t just entertainment—they’re a playground for obsession.
-                info on the user’s profile…
+              I’m obsessed with cinema that challenges and electrifies. Christopher Nolan’s mindbending narratives and Quentin Tarantino’s razor sharp dialogue are my lifeblood.  <br /> I crave stories that twist time, explode convention, and leave me dissecting scenes long after the credits roll. For me, movies aren’t just entertainment they’re a playground for obsession.
+                
             </p>
 
             {/* Button */}

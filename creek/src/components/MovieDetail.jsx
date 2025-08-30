@@ -2,7 +2,7 @@ import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 // API Key and Base URL for TMDb API
-const API_KEY = "b91f100e78d4923f752a81397c07ef35";  // Use your TMDb API Key here
+const API_KEY = "b91f100e78d4923f752a81397c07ef35";  
 const BASE_URL = "https://api.themoviedb.org/3/movie/";
 
 export default function MovieDetail() {

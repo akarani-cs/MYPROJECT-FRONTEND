@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react"; // lightweight icon package
+import { ChevronLeft, ChevronRight } from "lucide-react"; 
 
 const QuoteScroll = () => {
   const [quotes, setQuotes] = useState([]);

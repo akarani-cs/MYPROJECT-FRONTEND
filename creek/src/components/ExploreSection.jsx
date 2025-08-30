@@ -16,7 +16,6 @@ const ExploreSection = () => {
         backgroundPosition: "center",
       }}
     >
-      {/* Overlay to darken background for text readability */}
       <div className="absolute inset-0 bg-black/50"></div>
 
   <div className="relative z-10 container mx-auto px-6 flex justify-end items-center min-h-screen">
