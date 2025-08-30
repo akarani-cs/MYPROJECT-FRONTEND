@@ -3,7 +3,7 @@ import { useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react"; // lightweight icon package
 
 // API Key and Base URL for TMDb API
-const API_KEY = "b91f100e78d4923f752a81397c07ef35";  // Use your TMDb API Key here
+const API_KEY = "b91f100e78d4923f752a81397c07ef35";  
 const BASE_URL = "https://api.themoviedb.org/3/movie/";
 
 export default function RatingsSection() {
@@ -25,10 +25,38 @@ export default function RatingsSection() {
   useEffect(() => {
     const fetchMovies = async () => {
       const movieIds = [
-        550, // Example movieId for Fight Club
+        550, // Fight Club
         299536, // Avengers: Infinity War
-        12345, // Example movieId
-        // Add more movie IDs as needed
+        12345, // Example movieId (replace with real ID)
+        278, // The Shawshank Redemption
+        238, // The Godfather
+        497, // The Dark Knight
+        862, // The Godfather: Part II
+        680, // Pulp Fiction
+        313, // The Lord of the Rings: The Return of the King
+        11, // Star Wars: A New Hope
+        2941, // Back to the Future
+        324, // The Matrix
+        424, // The Empire Strikes Back
+        961, // Goodfellas
+        597, // Interstellar
+        136, // The Silence of the Lambs
+        400, // The Dark Knight Rises
+        122, // Schindler's List
+        118, // Forrest Gump
+        116, // Inception
+        13, // The Departed
+        293, // Se7en
+        296, // Mad Max: Fury Road
+        429, // The Prestige
+        4291, // Trainspotting
+        38, // Gladiator
+        129, // Star Wars: The Force Awakens
+        122, // The Lion King
+        299534, // Avengers: Endgame
+        37724, // The Matrix Resurrections
+        297, // Jaws
+        99861, // Spider-Man: No Way Home
       ];
 
       const movieData = await Promise.all(
