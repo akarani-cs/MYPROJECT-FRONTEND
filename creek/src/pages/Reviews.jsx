@@ -12,6 +12,7 @@ export default function Reviews() {
        <ReviewsSection />
        <RatingsSection />
        <QuoteScroll />
+
        <MovieGallery />
 
        <Contact />
