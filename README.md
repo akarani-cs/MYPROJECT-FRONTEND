@@ -15,3 +15,9 @@ the api used is the OMDB api
 
 the endpoints are in the reviews component
 the trailers component 
+the quotes component
+the ratings component
+
+
+routing has been done using react router dom (client side)
+i implemented transitions using framer-motion
